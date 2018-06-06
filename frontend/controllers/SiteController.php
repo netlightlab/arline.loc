@@ -31,7 +31,7 @@ class SiteController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['login', 'logout', 'error'],
+                        'actions' => ['login', 'logout', 'error', 'index'],
                         'roles' => ['@', '?']
                     ],
                 ],
@@ -68,6 +68,12 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        if(!Yii::$app->user->isGuest){
+            $role = User::getUserRole(Yii::$app->user->id);
+            $this->redirect(Url::to([$role . '/index']));
+        }else{
+            $this->redirect(Url::to(['site/login']));
+        }
         return $this->render('index');
     }
 
