@@ -8,6 +8,7 @@
 
 namespace frontend\controllers;
 
+use common\models\User;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\web\Controller;

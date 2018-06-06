@@ -187,6 +187,13 @@ class User extends ActiveRecord implements IdentityInterface
         $this->password_reset_token = null;
     }
 
+    /**
+     * @param $id
+     * @return int|null|string
+     *
+     * get user role
+     */
+
     public static function getUserRole($id)
     {
         if(is_numeric($id)){

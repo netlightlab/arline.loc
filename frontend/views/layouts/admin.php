@@ -7,11 +7,9 @@
  */
 
 use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
+use yii\helpers\Url;
 
 AppAsset::register($this);
 ?>
@@ -28,50 +26,51 @@ AppAsset::register($this);
     <?php $this->head() ?>
 </head>
 <body>
+
+
 <?php $this->beginBody() ?>
 
-
-
-
-<div class="wrap">
-    <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
-    ]);
-    if (Yii::$app->user->isGuest) {
-//        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-    } else {
-        $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post')
-            . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link logout']
-            )
-            . Html::endForm()
-            . '</li>';
-    }
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => $menuItems,
-    ]);
-    NavBar::end();
-    ?>
-
-    <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
+<main id="main">
+    <aside>
+        <div class="logo">
+            <?= HTML::a('TOO "AR LINE SERVICE"', Yii::$app->homeUrl) ?>
+        </div>
+        <div class="user-block">
+            <div class="user-thumb">
+                <?= HTML::img('@web/common/main/user.png') ?>
+            </div>
+            <div class="user-info">
+                <p class="name"><?= Yii::$app->user->identity->username ?></p>
+            </div>
+        </div>
+        <div class="sidebar">
+            <div class="plawka"></div>
+            <ul class="sitemap">
+                <li class="sitemap-item"><?= html::a('Главная', Url::to(['/editor/index']), ['class' => 'sitemap-link']) ?></li>
+                <?php
+                echo '<li class="sitemap-item">'
+                    . Html::beginForm(['/site/logout'], 'post')
+                    . Html::submitButton(
+                        'Выйти',
+                        ['class' => 'sitemap-link']
+                    )
+                    . Html::endForm()
+                    . '</li>'
+                ?>
+            </ul>
+            <span class="copyright">&copy; copyright</span>
+        </div>
+    </aside>
+    <section>
+        <div class="top-line">
+            <p>ТЕСТ ПЕСТ ХЕСТ</p>
+        </div>
         <?= Alert::widget() ?>
-        <?= $content ?>
-    </div>
-</div>
-
-
+        <div class="wrapper">
+            <?= $content ?>
+        </div>
+    </section>
+</main>
 
 <?php $this->endBody() ?>
 </body>

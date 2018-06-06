@@ -118,3 +118,131 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+
+
+
+/* aside all */
+
+aside {
+    background: #f7cd006b;
+    width:255px;
+    position: fixed;
+    height:100%;
+}
+
+section {
+    margin-left:255px;
+}
+
+section .top-line {
+    width:100%;
+    background: #f7cd006b;
+    height:40px;
+    padding-left:10px;
+}
+
+section .wrapper {
+    padding: 10px;
+}
+
+.logo {
+    background: #f7cd00;
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+    overflow: hidden;
+    height:40px;
+}
+
+.logo a {
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 1px 1px #505050;
+}
+
+.user-block {
+    width: 100%;
+    height: auto;
+    margin-top: 20px;
+    overflow: hidden;
+    border-bottom:1px solid #fff;
+}
+
+.user-block .user-thumb {
+    width: 75px;
+    height: 75px;
+    overflow: hidden;
+    position: relative;
+    margin: auto;
+}
+
+.user-block .user-thumb img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.user-block .user-info {
+    position: relative;
+    width: 100%;
+}
+
+.user-block .user-info p.name {
+    margin: 10px auto;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #505050;
+}
+
+ul.sitemap {
+    margin-top: 10px;
+    padding: 0;
+}
+
+ul.sitemap li.sitemap-item {
+    overflow: hidden;
+    background: #3ac9ff;
+    margin-top: 5px;
+}
+
+ul.sitemap li.sitemap-item a.sitemap-link,
+ul.sitemap li.sitemap-item button.sitemap-link {
+    padding: 10px;
+    display: block;
+    background: #f7cd00;
+    margin-left: 10px;
+    color: #2e2e2e;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    outline: none;
+    transition: 150ms;
+}
+
+ul.sitemap li.sitemap-item a.sitemap-link:hover,
+ul.sitemap li.sitemap-item button.sitemap-link:hover {
+    background: #3e3e3e;
+    color: #fff;
+}
+
+.sidebar span.copyright {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 10px;
+    text-align: center;
+    font-size: 16px;
+    text-transform: uppercase;
+    color: #6f6f6f;
+}
+
+/* #sidebar editor */
