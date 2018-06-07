@@ -10,6 +10,7 @@
 use yii\data\ArrayDataProvider;
 use kartik\grid\GridView;
 use kartik\grid\FormulaColumn;
+use yii\grid\ActionColumn;
 
 ?>
 
@@ -43,24 +44,12 @@ $res = [
         'headerOptions'=>['class'=>'kv-sticky-column'],
         'contentOptions'=>['class'=>'kv-sticky-column'],
     ],
-    ];
+];
 
 echo GridView::widget([
     'dataProvider'=> $dataProvider,
-
     'columns' => [
-        [
-            'attribute' => 'id',
-            'options' => [
-                'rowspan' => 2,
-            ]
-            /*'class'=>'kartik\grid\FormulaColumn',
-            'header'=>'asd',
-            'mergeHeader'=>true,
-            'width'=>'150px',
-            'hAlign'=>'right',
-            'format'=>['decimal', 2],*/
-        ],
+        ['class' => 'yii\grid\SerialColumn'],
         [
             'attribute' => 'name',
         ],
@@ -70,13 +59,24 @@ echo GridView::widget([
         [
             'attribute' => 'name'
         ],
+        [
+            'attribute' => 'name'
+        ],
+        [
+            'attribute' => 'name'
+        ],
+        [
+            'attribute' => 'name'
+        ],
     ],
     'beforeHeader'=>[
         [
             'columns'=>[
-                ['content' => 'Дата', 'options' => ['rowspan' => 2, 'class'=>'text-center warning']],
-                ['content'=>'Выезд', 'options'=>['colspan'=>2, 'class'=>'text-center warning']],
-                ['content'=>'Header Before 2', 'options'=>['colspan'=>4, 'class'=>'text-center warning']],
+//                ['content' => 'Дата', 'options' => ['rowspan' => 2, 'class'=>'text-center warning']],
+                [],
+                ['content'=>'Выезд', 'options'=>['colspan'=>2, 'class'=>'text-center ']],
+                ['content'=>'Заезд', 'options'=>['colspan'=>2, 'class'=>'text-center ']],
+                [],[]
             ],
             'options'=>['class'=>'skip-export'] // remove this row from export
         ]

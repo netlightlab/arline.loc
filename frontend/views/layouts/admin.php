@@ -46,7 +46,18 @@ AppAsset::register($this);
         <div class="sidebar">
             <div class="plawka"></div>
             <ul class="sitemap">
-                <li class="sitemap-item"><?= html::a('Главная', Url::to(['/editor/index']), ['class' => 'sitemap-link']) ?></li>
+                <li class="sitemap-item">
+                    <?= html::a('Главная', Url::to(['admin/index']), ['class' => 'sitemap-link']) ?>
+                </li>
+                <li class="sitemap-item">
+                    <?= html::a('Водители', Url::to(['driver/index']), ['class' => 'sitemap-link']) ?>
+                </li>
+                <li class="sitemap-item">
+                    <?= html::a('Автомобили', Url::to(['auto/index']), ['class' => 'sitemap-link']) ?>
+                </li>
+                <li class="sitemap-item">
+                    <?= html::a('Координаторы', Url::to(['user/index']), ['class' => 'sitemap-link']) ?>
+                </li>
                 <?php
                 echo '<li class="sitemap-item">'
                     . Html::beginForm(['/site/logout'], 'post')

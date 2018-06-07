@@ -1,8 +1,9 @@
 <?php
 
-namespace app\models;
+namespace frontend\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "auto".
@@ -40,9 +41,36 @@ class Auto extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'driver_id' => 'Driver ID',
-            'mark' => 'Mark',
-            'number' => 'Number',
+            'driver_id' => 'Водитель',
+            'mark' => 'Марка авто',
+            'number' => 'Гос. номер',
         ];
+    }
+
+    /**
+     * Получить водителей
+     * @return array
+     * Array( 'id' => 'name surname' )
+     */
+    public static function getDrivers(){
+        $drivers = Driver::find()->asArray()->indexBy('id')->all();
+
+        $result = [];
+        foreach($drivers as $driver){
+            $result[$driver['id']] = $driver['surname'] . " " . $driver['name'];
+        }
+
+        return $result;
+    }
+
+    /**
+     * Получить имя фамилию водителя по id
+     * @return string
+     * Имя Фамилия
+     */
+    public static function getDriverName($id){
+        $drivers = Driver::find()->select(['surname','name'])->asArray()->where(['id' => $id])->one();
+        $result = implode(' ', $drivers);
+        return $result;
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace frontend\models;
 
 use Yii;
 
@@ -41,8 +41,8 @@ class Driver extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'auto_id' => 'Auto ID',
-            'name' => 'Name',
-            'surname' => 'Surname',
+            'name' => 'Имя',
+            'surname' => 'Фамилия',
         ];
     }
 }
