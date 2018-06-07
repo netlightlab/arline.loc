@@ -11,8 +11,15 @@ use yii\data\ArrayDataProvider;
 use kartik\grid\GridView;
 use kartik\grid\FormulaColumn;
 use yii\grid\ActionColumn;
+use yii\helpers\Html;
+use yii\helpers\Url;
 
 ?>
+
+<?php foreach ($data as $item): ?>
+    <?= Html::a($item->number, Url::to(['waybill', 'auto_id' => $item->id])) ?>
+<?php endforeach; ?>
+
 
 <?php
 $resultData = [

@@ -69,6 +69,7 @@ return [
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
                 '<controller:\w+>/<id:\w+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>/<id:\w+>' => '<controller>/<action>',
+                '<controller:\w+>/<action:\w+>/<auto_id:\w+>' => '<controller>/<action>',
             ],
         ],
 

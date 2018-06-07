@@ -40,7 +40,7 @@ AppAsset::register($this);
                 <?= HTML::img('@web/common/main/user.png') ?>
             </div>
             <div class="user-info">
-                <p class="name"><?= Yii::$app->user->identity->username ?></p>
+                <p class="name"><?= Yii::$app->user->identity->fio ?></p>
             </div>
         </div>
         <div class="sidebar">
