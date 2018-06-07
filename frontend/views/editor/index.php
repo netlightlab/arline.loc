@@ -71,7 +71,7 @@ echo GridView::widget([
             'attribute' => 'name'
         ],
     ],
-    /*'beforeHeader'=>[
+    'beforeHeader'=>[
         [
             'columns'=>[
                 ['content' => 'Дата', 'options' => ['rowspan' => 2, 'class'=>'text-center warning']],
@@ -80,7 +80,7 @@ echo GridView::widget([
             ],
             'options'=>['class'=>'skip-export'] // remove this row from export
         ]
-    ],*/
+    ],
     'responsive'=>true,
     'hover'=>true
 ]);
