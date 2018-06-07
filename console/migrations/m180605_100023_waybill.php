@@ -33,6 +33,7 @@ class m180605_100023_waybill extends Migration
         $this->createTable('waybill', [
             'id' => Schema::TYPE_PK,
             'auto_id' => Schema::TYPE_INTEGER,
+            'coordinator_id' => Schema::TYPE_INTEGER,
             'date' => Schema::TYPE_TIMESTAMP,
             'time_start' => Schema::TYPE_TIME,
             'odo_start' => Schema::TYPE_INTEGER,
@@ -51,8 +52,6 @@ class m180605_100023_waybill extends Migration
     public function down()
     {
         $this->dropTable('waybill');
-
-        return false;
     }
 
 }

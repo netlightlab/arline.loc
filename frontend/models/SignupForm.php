@@ -55,9 +55,9 @@ class SignupForm extends Model
         
         $user->save() ? $user : null;
 
-//        $auth = Yii::$app->authManager;
-//        $authorRole = $auth->getRole('editor');
-//        $auth->assign($authorRole, $user->id);
+        $auth = Yii::$app->authManager;
+        $authorRole = $auth->getRole('editor');
+        $auth->assign($authorRole, $user->id);
 
         return $user;
     }
