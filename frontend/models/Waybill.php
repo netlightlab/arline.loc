@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property int $auto_id
+ * @property int $coordinator_id
  * @property string $date
  * @property string $time_start
  * @property int $odo_start
@@ -38,7 +39,7 @@ class Waybill extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['auto_id', 'odo_start', 'odo_end', 'passed_km', 'card', 'gsm'], 'integer'],
+            [['auto_id', 'coordinator_id', 'odo_start', 'odo_end', 'passed_km', 'card', 'gsm'], 'integer'],
             [['date', 'time_start', 'time_end'], 'safe'],
             [['odo_start_photo', 'odo_end_photo', 'way', 'gsm_check'], 'string', 'max' => 255],
         ];
