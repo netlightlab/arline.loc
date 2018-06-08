@@ -74,7 +74,7 @@ AppAsset::register($this);
     </aside>
     <section>
         <div class="top-line">
-            <p>ТЕСТ ПЕСТ ХЕСТ</p>
+<!--            <p>ТЕСТ ПЕСТ ХЕСТ</p>-->
         </div>
         <?= Alert::widget() ?>
         <div class="wrapper">

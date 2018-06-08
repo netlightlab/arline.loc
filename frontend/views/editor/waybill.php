@@ -27,7 +27,7 @@ echo GridView::widget([
             },
         ],
         [
-            'attribute' => 'time_start'
+            'attribute' => 'time_start',
         ],
         [
             'attribute' => 'odo_start'
@@ -56,7 +56,6 @@ echo GridView::widget([
     'beforeHeader'=>[
         [
             'columns'=>[
-//                ['content' => 'Дата', 'options' => ['rowspan' => 2, 'class'=>'text-center warning']],
                 [],
                 [],
                 ['content'=>'Выезд', 'options'=>['colspan'=>2, 'class'=>'text-center ']],
