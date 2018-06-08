@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Auto */
+/* @var $model frontend\models\Auto */
 
 $this->title = 'Update Auto: ' . $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Autos', 'url' => ['index']];

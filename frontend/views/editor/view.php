@@ -17,14 +17,14 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => 'Гос. номер',
                 'value' => function($e) {
-                    $auto = Auto::find()->select('number')->where(['id' => Yii::$app->request->get('id')])->one();
+                    $auto = Auto::find()->select('number')->where(['id' => $e->auto_id])->one();
                     return $auto->number;
                 },
             ],
             [
                 'label' => 'ФИО',
                 'value' => function($e) {
-                    return Auto::getDriverName(Auto::find()->where(['id' => Yii::$app->request->get('id')])->select('driver_id')->one());
+                    return Auto::getDriverName(Auto::find()->where(['id' => $e->auto_id])->select('driver_id')->one());
                 },
             ],
             'date',
