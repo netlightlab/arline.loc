@@ -54,13 +54,17 @@ class EditorController extends Controller
 
     public function actionIndex(){
 
+
+
         $cars = User::find()->where(['id' => Yii::$app->user->id])->select(['cars'])->one();
         $carsId = unserialize($cars->cars);
 
-        $data = Auto::find()->where(['id' => $carsId])->all();
+        $dataProvider = new ActiveDataProvider([
+            'query' => Auto::find()->where(['id' => $carsId]),
+        ]);
 
         return $this->render('index', [
-            'data' => $data,
+            'dataProvider' => $dataProvider
         ]);
     }
 
@@ -150,15 +154,15 @@ class EditorController extends Controller
     }
 
     /**
-     * Finds the Auto model based on its primary key value.
+     * Finds the Waybill model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Auto the loaded model
+     * @return Waybill the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Auto::findOne($id)) !== null) {
+        if (($model = Waybill::findOne($id)) !== null) {
             return $model;
         }
 
