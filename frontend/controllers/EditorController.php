@@ -16,6 +16,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\data\ActiveDataProvider;
+use yii\base\Exception;
 use Yii;
 
 class EditorController extends Controller
@@ -104,7 +105,9 @@ class EditorController extends Controller
 
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-
+            if($model->odo_end <= $model->odo_start && $model->odo_end !== null){
+                throw new Exception('test');
+            }
             $model->auto_id = $auto_id;
             $model->coordinator_id = Yii::$app->user->id;
             $model->passed_km = $model->odo_end - $model->odo_start;
@@ -130,8 +133,16 @@ class EditorController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if(!empty($model->odo_end) && $model->odo_end <= $model->odo_start){
+                throw new Exception('test');
+            }
+            $model->passed_km = $model->odo_end - $model->odo_start;
+
+            $model->save(false);
+
             return $this->redirect(['view', 'id' => $model->id]);
+
         }
 
         return $this->render('update', [
