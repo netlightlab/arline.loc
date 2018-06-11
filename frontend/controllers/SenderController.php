@@ -10,6 +10,7 @@ namespace frontend\controllers;
 
 
 use common\models\EmailSender;
+use frontend\models\Errors;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use frontend\models\Waybill;
@@ -17,14 +18,48 @@ use frontend\models\Waybill;
 class SenderController extends Controller
 {
     /**
-     * проверяем пробег вечером предыдущего дня и сравниваем с утром
+     * проверяем заполнен ли вечерний пробег
      *
-     * @return boolean
      */
     public function actionCheck()
     {
+        $result = $this->getArrayData();
+
+        if(is_array($result)){
+            foreach($result as $item){
+                $errors = new Errors();
+                $errors->date = $item['date'];
+                $errors->coordinator = $item['coordinator_id'];
+                $errors->car = $item['auto_id'];
+                $errors->save(); //записываем эти данные в таблицу errors;
+            }
+            $this->sendEmail($result);
+        }
+    }
+
+
+
+    /**
+     * отправляем email с данными
+     *
+     * @return boolean
+     */
+    protected function sendEmail($result){
+        $mail = new EmailSender();
+        if($mail->sendEmail($result))
+            return true;
+
+        return false;
+    }
+
+    /**
+     * @return array|null
+     *
+     */
+    public function getArrayData()
+    {
         $waybills = Waybill::find()
-            ->select(['date','auto_id','odo_start','odo_end'])
+            ->select(['date','coordinator_id','auto_id','odo_start','odo_end'])
             ->asArray()
             ->all();
 
@@ -35,25 +70,15 @@ class SenderController extends Controller
             $waybill['date'] = date_format($date, 'd-m-Y');
             if($waybill['date'] == $previousDay){
                 if(!$waybill['odo_end']){ //проверка если вчера не заполнили показания одометра по приезду
-                    echo 'error';
                     $resultArray[] = $waybill; //записываем сюда все вчерашние данные путевых листов
                 }
             }
         }
 
-        return true;
-    }
-
-
-
-    /**
-     * отправляем email с данными
-     *
-     * @return boolean
-     */
-    protected function sendEmail(){
-        $mail = new EmailSender();
-
-        return true;
+        if($resultArray){
+            return $resultArray;
+        }else{
+            return null;
+        }
     }
 }
