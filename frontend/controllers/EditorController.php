@@ -105,12 +105,10 @@ class EditorController extends Controller
 
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if($model->odo_end <= $model->odo_start && $model->odo_end !== null){
-                throw new Exception('test');
-            }
             $model->auto_id = $auto_id;
             $model->coordinator_id = Yii::$app->user->id;
-            $model->passed_km = $model->odo_end - $model->odo_start;
+            if($model->odo_end)
+                $model->passed_km = $model->odo_end - $model->odo_start;
 
             $model->save(false);
 
