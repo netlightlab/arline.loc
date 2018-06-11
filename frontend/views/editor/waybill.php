@@ -8,17 +8,56 @@
 
 use kartik\grid\GridView;
 use frontend\models\Auto;
+use yii\widgets\Pjax;
+use yii\widgets\ActiveForm;
 ?>
 
-<?= \yii\helpers\Html::a('Create', \yii\helpers\Url::to(['create', 'auto_id' => Yii::$app->request->get('auto_id')]), ['class' => 'btn btn-primary']) ?>
+<?= \yii\helpers\Html::a('Создать', \yii\helpers\Url::to(['create', 'auto_id' => Yii::$app->request->get('auto_id')]), ['class' => 'btn btn-primary']) ?>
+
+
+<div style="padding: 30px 0 0;">
+<p>Марка автомобиля: <?= $car->mark ?></p>
+<p>Гос/сер.: <?= $car->number ?></p>
+</div>
+
+<?php Pjax::begin(['id' => 'waybills']) ?>
+
+<div style="padding: 30px 0;">
+<? $form = ActiveForm::begin([
+    'method' => "GET",
+    'enableAjaxValidation' => true,
+    'action' => '',
+    'options' => [
+        'data-pjax' => true,
+        'enctype' => 'multipart/form-data',
+        'class' => 'form-inline'
+    ]
+]); ?>
+<!--    <i class="glyphicon glyphicon-calendar"></i>-->
+<?= $form->field($model, 'date_from')->widget(\yii\jui\DatePicker::class, [
+    'dateFormat' => 'yyyy-MM-dd'
+])->label('С') ?>
+<?= $form->field($model, 'date_to')->widget(\yii\jui\DatePicker::class, [
+    'dateFormat' => 'yyyy-MM-dd'
+])->label('По') ?>
+<?= \yii\helpers\Html::submitButton('Фильтр', ['class' => 'btn btn-primary']) ?>
+
+<? ActiveForm::end() ?>
+</div>
 
 <?php
 echo GridView::widget([
     'dataProvider'=> $dataProvider,
     'columns' => [
-//        ['class' => 'yii\grid\SerialColumn'],
+//        'filter' => \yii\jui\DatePicker::widget([
+//            'model'=>$searchModel,
+//            'attribute'=>'date',
+//            'language' => 'ru',
+//                'dateFormat' => 'dd-MM-yyyy',
+//        ]),
         [
             'attribute' => 'date',
+            'format' => ['date', 'dd-MM-Y'],
         ],
         [
             'header' => 'fio',
@@ -69,3 +108,4 @@ echo GridView::widget([
     'hover'=>true
 ]);
 ?>
+<?php Pjax::end() ?>

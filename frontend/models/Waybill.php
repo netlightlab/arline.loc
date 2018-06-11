@@ -3,28 +3,17 @@
 namespace frontend\models;
 
 use Yii;
+use yii\data\ActiveDataProvider;
 
 /**
  * This is the model class for table "waybill".
  *
  * @property int $id
- * @property int $auto_id
- * @property int $coordinator_id
- * @property string $date
- * @property string $time_start
- * @property int $odo_start
- * @property string $odo_start_photo
- * @property string $time_end
- * @property int $odo_end
- * @property string $odo_end_photo
- * @property int $passed_km
- * @property string $way
- * @property int $card
- * @property int $gsm
- * @property string $gsm_check
  */
 class Waybill extends \yii\db\ActiveRecord
 {
+    public $date_from;
+    public $date_to;
     /**
      * {@inheritdoc}
      */

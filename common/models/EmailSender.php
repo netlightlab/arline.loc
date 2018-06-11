@@ -35,6 +35,8 @@ class EmailSender extends Model
                 . '<br>';
         }
 
+//        print_r($this->body);
+
         return Yii::$app->mailer->compose()
                 ->setFrom(Yii::$app->params['supportEmail'])
                 ->setTo($this->toEmail)
