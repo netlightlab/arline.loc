@@ -24,9 +24,9 @@ use yii\widgets\ActiveForm;
 
 <div style="padding: 30px 0;">
 <? $form = ActiveForm::begin([
-    'method' => "GET",
+    'method' => 'GET',
     'enableAjaxValidation' => true,
-    'action' => '',
+//    'action' => '',
     'options' => [
         'data-pjax' => true,
         'enctype' => 'multipart/form-data',
@@ -60,7 +60,7 @@ echo GridView::widget([
             'format' => ['date', 'dd-MM-Y'],
         ],
         [
-            'header' => 'fio',
+            'header' => 'Ф.И.О водителя',
             'value' => function($e) {
                 return Auto::getDriverName(Auto::find()->where(['id' => Yii::$app->request->get('auto_id')])->select('driver_id')->one());
             },
@@ -81,7 +81,7 @@ echo GridView::widget([
             'attribute' => 'passed_km'
         ],
         [
-            'header' => 'way'
+            'header' => 'Маршрут движения'
         ],
         [
             'attribute' => 'card'
@@ -98,7 +98,7 @@ echo GridView::widget([
                 [],
                 [],
                 ['content'=>'Выезд', 'options'=>['colspan'=>2, 'class'=>'text-center ']],
-                ['content'=>'Заезд', 'options'=>['colspan'=>2, 'class'=>'text-center ']],
+                ['content'=>'Возвращение', 'options'=>['colspan'=>2, 'class'=>'text-center ']],
                 [],[],[],[],[]
             ],
             'options'=>['class'=>'skip-export'] // remove this row from export

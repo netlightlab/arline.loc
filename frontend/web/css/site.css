@@ -144,6 +144,8 @@ section .top-line {
 
 section .wrapper {
     padding: 10px;
+    width: 100%;
+    overflow: hidden;
 }
 
 .logo {
