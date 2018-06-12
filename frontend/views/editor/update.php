@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Auto */
 
-$this->title = 'Update Auto: ' . $model->id;
+$this->title = 'Изменить запись';
 $this->params['breadcrumbs'][] = ['label' => 'Autos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';

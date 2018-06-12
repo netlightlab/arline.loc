@@ -12,10 +12,12 @@ use frontend\models\Waybill;
 use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\helpers\FileHelper;
 use yii\web\Controller;
 use Yii;
 use frontend\models\Auto;
 use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 
 class AdminController extends Controller
 {
@@ -78,25 +80,94 @@ class AdminController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
+    public $odo_start_photo;
+    public $odo_end_photo;
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $this->odo_start_photo = $model->odo_start_photo;
+        $this->odo_end_photo = $model->odo_end_photo;
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if(!empty($model->odo_end) && $model->odo_end <= $model->odo_start){
                 throw new Exception('test');
             }
-            $model->passed_km = $model->odo_end - $model->odo_start;
+            if($model->odo_end){
+                $model->passed_km = $model->odo_end - $model->odo_start;
+            }
+
+            if($startPhoto = UploadedFile::getInstance($model,'odo_start_photo')){
+                $uploadPath = 'common/uploads/' . $model->id;
+
+                if (!is_dir($uploadPath)) {
+                    FileHelper::createDirectory($uploadPath);
+                }
+
+                if ($startPhoto->saveAs($uploadPath . '/' . $startPhoto->name)) {
+                    $model->odo_start_photo = $startPhoto->name;
+                }
+            }else{
+                $model->odo_start_photo = $this->odo_start_photo;
+            }
+
+
+            if($endPhoto = UploadedFile::getInstance($model,'odo_end_photo')){
+                $uploadPath = 'common/uploads/' . $model->id;
+
+                if (!is_dir($uploadPath)) {
+                    FileHelper::createDirectory($uploadPath);
+                }
+
+                if ($endPhoto->saveAs($uploadPath . '/' . $endPhoto->name)) {
+                    $model->odo_end_photo = $endPhoto->name;
+                }
+            }else{
+                $model->odo_end_photo = $this->odo_end_photo;
+            }
+
 
             $model->save(false);
 
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['waybill-view', 'id' => $model->id]);
 
         }
 
         return $this->render('update', [
             'model' => $model,
         ]);
+    }
+
+    /**
+     * Displays a single Auto model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionWaybillView($id)
+    {
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+
+    /**
+     * Deletes an existing Auto model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionDelete($id)
+    {
+//        если нужно удалять папку с фото тоже
+        /*$dir = 'common/uploads/' . $id;
+        if(is_dir($dir)){
+            FileHelper::removeDirectory($dir);
+        }*/
+
+
+        $this->findModel($id)->delete();
+        return $this->goBack();
     }
 
     /**

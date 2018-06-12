@@ -8,6 +8,8 @@
 
 use kartik\grid\GridView;
 use frontend\models\Auto;
+use yii\helpers\Html;
+use yii\helpers\Url;
 ?>
 
 <?//= \yii\helpers\Html::a('Create', \yii\helpers\Url::to(['create', 'auto_id' => Yii::$app->request->get('auto_id')]), ['class' => 'btn btn-primary']) ?>
@@ -50,7 +52,16 @@ echo GridView::widget([
         [
             'attribute' => 'gsm'
         ],
-        ['class' => 'yii\grid\ActionColumn'],
+        [
+            'class' => 'yii\grid\ActionColumn',
+            'buttons' => [
+                'view' => function ($url, $model) {
+                    return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', Url::to(['waybill-view', 'id' => $model->id]), [
+                        'title' => Yii::t('app', 'lead-view'),
+                    ]);
+                },
+            ]
+        ],
 
     ],
     'beforeHeader'=>[

@@ -13,11 +13,14 @@ use frontend\models\Auto;
 use frontend\models\Waybill;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\helpers\FileHelper;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\data\ActiveDataProvider;
 use yii\base\Exception;
 use Yii;
+use yii\web\UploadedFile;
 
 class EditorController extends Controller
 {
@@ -118,16 +121,53 @@ class EditorController extends Controller
     {
         $model = new Waybill();
 
+//        $uCars = unserialize(User::find()->select('cars')->where(['id' => Yii::$app->user->id])->one()->cars);
+
+
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
             $model->auto_id = $auto_id;
             $model->coordinator_id = Yii::$app->user->id;
             if($model->odo_end)
                 $model->passed_km = $model->odo_end - $model->odo_start;
 
+            /*file upload*/
+
+            $startPhoto = UploadedFile::getInstance($model,'odo_start_photo');
+            $endPhoto = UploadedFile::getInstance($model,'odo_end_photo');
+
+            if($startPhoto->name)
+                $model->odo_start_photo = $startPhoto->name;
+
+            if($endPhoto->name)
+                $model->odo_end_photo = $startPhoto->name;
+
             $model->save(false);
 
-            return $this->redirect(['index']);
+            if($startPhoto){
+                $uploadPath = 'common/uploads/' . $model->id;
+
+                if(!is_dir($uploadPath)){
+                    FileHelper::createDirectory($uploadPath);
+                }
+
+                $startPhoto->saveAs($uploadPath . '/' . $startPhoto->name);
+            }
+
+            if($endPhoto){
+                $uploadPath = 'common/uploads/' . $model->id;
+
+                if(!is_dir($uploadPath)){
+                    FileHelper::createDirectory($uploadPath);
+                }
+
+                $endPhoto->saveAs($uploadPath . '/' . $endPhoto->name);
+            }
+
+            /*#file upload*/
+
+            return $this->redirect(Url::to(['waybill', 'auto_id' => Yii::$app->request->get('auto_id')]));
         }
 
         return $this->render('create', [
@@ -142,15 +182,56 @@ class EditorController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
+    public $odo_start_photo;
+    public $odo_end_photo;
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $this->odo_start_photo = $model->odo_start_photo;
+        $this->odo_end_photo = $model->odo_end_photo;
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if(!empty($model->odo_end) && $model->odo_end <= $model->odo_start){
                 throw new Exception('test');
             }
-            $model->passed_km = $model->odo_end - $model->odo_start;
+            if($model->odo_end){
+                $model->passed_km = $model->odo_end - $model->odo_start;
+            }
+
+
+
+            if($startPhoto = UploadedFile::getInstance($model,'odo_start_photo')){
+                $uploadPath = 'common/uploads/' . $model->id;
+
+                if (!is_dir($uploadPath)) {
+                    FileHelper::createDirectory($uploadPath);
+                }
+
+                if ($startPhoto->saveAs($uploadPath . '/' . $startPhoto->name)) {
+                    $model->odo_start_photo = $startPhoto->name;
+                }
+            }else{
+                $model->odo_start_photo = $this->odo_start_photo;
+            }
+
+
+            if($endPhoto = UploadedFile::getInstance($model,'odo_end_photo')){
+                $uploadPath = 'common/uploads/' . $model->id;
+
+                if (!is_dir($uploadPath)) {
+                    FileHelper::createDirectory($uploadPath);
+                }
+
+                if ($endPhoto->saveAs($uploadPath . '/' . $endPhoto->name)) {
+                    $model->odo_end_photo = $endPhoto->name;
+                }
+            }else{
+                $model->odo_end_photo = $this->odo_end_photo;
+            }
+
+
+
+
 
             $model->save(false);
 
@@ -172,9 +253,15 @@ class EditorController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+//        если нужно удалять папку с фото тоже
+        /*$dir = 'common/uploads/' . $id;
+        if(is_dir($dir)){
+            FileHelper::removeDirectory($dir);
+        }*/
 
-        return $this->redirect(['index']);
+
+        $this->findModel($id)->delete();
+        return $this->goBack();
     }
 
     /**
