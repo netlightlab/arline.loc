@@ -15,7 +15,7 @@ use yii\widgets\ActiveForm;
 <?= \yii\helpers\Html::a('Создать', \yii\helpers\Url::to(['create', 'auto_id' => Yii::$app->request->get('auto_id')]), ['class' => 'btn btn-primary']) ?>
 
 
-<div style="padding: 30px 0 0;">
+<div style="padding: 30px 0 0; font-size: 2rem">
 <p>Марка автомобиля: <?= $car->mark ?></p>
 <p>Гос/сер.: <?= $car->number ?></p>
 </div>
@@ -36,10 +36,10 @@ use yii\widgets\ActiveForm;
 <!--    <i class="glyphicon glyphicon-calendar"></i>-->
 <?= $form->field($model, 'date_from')->widget(\yii\jui\DatePicker::class, [
     'dateFormat' => 'yyyy-MM-dd'
-])->label('С') ?>
+])->label('Период с') ?>
 <?= $form->field($model, 'date_to')->widget(\yii\jui\DatePicker::class, [
-    'dateFormat' => 'yyyy-MM-dd'
-])->label('По') ?>
+    'dateFormat' => 'yyyy-MM-dd',
+])->label('по') ?>
 <?= \yii\helpers\Html::submitButton('Фильтр', ['class' => 'btn btn-primary']) ?>
 
 <? ActiveForm::end() ?>

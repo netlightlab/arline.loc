@@ -71,22 +71,28 @@ class EditorController extends Controller
 
     public function actionWaybill($auto_id) {
         $model = new Waybill();
-        $date_from = Yii::$app->request->queryParams['Waybill']['date_from'];
-        $date_to = Yii::$app->request->queryParams['Waybill']['date_to'];
+
+        Yii::$app->request->queryParams['Waybill']['date_from'] ? $date_from = Yii::$app->request->queryParams['Waybill']['date_from'] : $date_from = date('Y-m-d' ,strtotime('first day of this month'));
+        Yii::$app->request->queryParams['Waybill']['date_to'] ? $date_to = Yii::$app->request->queryParams['Waybill']['date_to'] : $date_to = date('Y-m-d' ,strtotime('last day of this month')); //получаем первый и последний дни текущего месяца и делаем фильтр за текущий месяц
+
         $car = Auto::find()->where(['id' => $auto_id])->one();
+
+        $model->date_from = $date_from;
+        $model->date_to = $date_to;
+
         $dataProvider = new ActiveDataProvider([
             'query' => Waybill::find()
                     ->where(['auto_id' => (int)$auto_id, 'coordinator_id' => Yii::$app->user->id])
                     ->andFilterWhere(['between', 'date', $date_from . ' 00:00:00', $date_to . ' 23:59:59']),
             'pagination' => [
-                'pageSize' => 10
+                'pageSize' => date('d',strtotime('last day of this month')) // количество записей в таблице = количеству дней в месяце
             ]
         ]);
 
         return $this->render('waybill', [
             'dataProvider' => $dataProvider,
             'model' => $model,
-            'car' => $car
+            'car' => $car,
         ]);
     }
 
