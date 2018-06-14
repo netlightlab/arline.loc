@@ -81,7 +81,7 @@ echo GridView::widget([
             'attribute' => 'passed_km'
         ],
         [
-            'header' => 'Маршрут движения'
+            'attribute' => 'way'
         ],
         [
             'attribute' => 'card'

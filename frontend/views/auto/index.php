@@ -7,7 +7,7 @@ use frontend\models\Auto;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Autos';
+$this->title = 'Автомобили';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="auto-index">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Auto', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать автомобиль', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

@@ -70,7 +70,11 @@ class Auto extends \yii\db\ActiveRecord
      */
     public static function getDriverName($id){
         $drivers = Driver::find()->select(['surname','name'])->asArray()->where(['id' => $id])->one();
-        $result = implode(' ', $drivers);
+        if($drivers){
+            $result = implode(' ', $drivers);
+        }else{
+            $result = 'Нет водителя';
+        }
         return $result;
     }
 }

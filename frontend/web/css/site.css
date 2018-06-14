@@ -276,3 +276,16 @@ table a.auto_link {
 table a.auto_link:hover {
     color: red
 }
+
+.main-p-nav, .main-p-footer {
+    background-color: #f7cd00;
+}
+
+.main-p-nav a.navbar-brand {
+    color: #000;
+    font-size: 2em;
+}
+
+.main-p-body {
+    background-color: #f7cd006b;
+}

@@ -4,9 +4,9 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Auto */
+/* @var $model frontend\models\Auto */
 
-$this->title = 'Create Auto';
+$this->title = 'Создать автомобиль';
 $this->params['breadcrumbs'][] = ['label' => 'Autos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

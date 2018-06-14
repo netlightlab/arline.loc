@@ -12,12 +12,12 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
-    <?= $form->field($model, 'fio')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'username')->textInput(['maxlength' => true])->label('Логин') ?>
+    <?= $form->field($model, 'fio')->textInput(['maxlength' => true])->label('Ф.И.О.') ?>
 
 <!--    --><?//= $form->field($model, 'auth_key')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'password')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'password')->textInput(['maxlength' => true])->label('Пароль') ?>
 
 <!--    --><?//= $form->field($model, 'password_reset_token')->textInput(['maxlength' => true]) ?>
 
@@ -33,11 +33,13 @@ use yii\widgets\ActiveForm;
 
 <!--    --><?//= $form->field($model, 'cars')->checkboxList($cars)->label('asd'); ?>
 
-    <?= Html::checkboxList('User[cars][]', unserialize($model->cars), $cars) ?>
+    <?php if($model->username): ?>
+        <?= Html::checkboxList('User[cars][]', unserialize($model->cars), $cars) ?>
+    <?php endif; ?>
 
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

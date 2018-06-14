@@ -53,7 +53,7 @@ class Waybill extends \yii\db\ActiveRecord
             'way' => 'Маршрут движения',
             'card' => 'Наименование карты, номер',
             'gsm' => 'Выдано ГСМ/л',
-            'gsm_check' => 'Gsm Check',
+            'gsm_check' => 'Чек ГСМ',
         ];
     }
 }

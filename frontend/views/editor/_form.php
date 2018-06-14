@@ -52,6 +52,12 @@ use yii\helpers\Url;
     ?>
     <?= $form->field($model, 'odo_end_photo')->fileInput()->label('Файл') ?>
 
+    <?= $form->field($model, 'way')->textInput()->label('Маршрут движения') ?>
+
+    <?= $form->field($model, 'card')->textInput()->label('Наименование карты, номер') ?>
+
+    <?= $form->field($model, 'gsm')->textInput()->label('Выдано ГСМ/л') ?>
+
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
